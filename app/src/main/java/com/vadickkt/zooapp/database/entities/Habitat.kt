@@ -8,7 +8,7 @@ import kotlinx.serialization.SerialName
 data class Habitat(
     @PrimaryKey(autoGenerate = true)
     @SerialName("habitat_id")
-    val habitatId: String,
+    val habitatId: Int,
     val name: String,
     val description: String
 )

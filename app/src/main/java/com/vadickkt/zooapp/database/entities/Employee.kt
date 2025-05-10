@@ -12,7 +12,7 @@ import java.util.Date
 data class Employee(
     @PrimaryKey(autoGenerate = true)
     @SerialName("employee_id")
-    val employeeId: String,
+    val employeeId: Int,
     val name: String,
     @SerialName("date_of_birthday")
     val dateOfBirthday: Date,
