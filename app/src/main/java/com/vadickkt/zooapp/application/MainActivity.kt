@@ -5,8 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
-import com.vadickkt.zooapp.navigation.Navigation
-import com.vadickkt.zooapp.ui.screen.HomeScreen
+import com.vadickkt.zooapp.navigation.MainNavHost
 import com.vadickkt.zooapp.ui.theme.ZooAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ZooAppTheme {
                 val navigationController = rememberNavController()
-                Navigation(navigationController)
+                MainNavHost(navigationController)
             }
         }
     }

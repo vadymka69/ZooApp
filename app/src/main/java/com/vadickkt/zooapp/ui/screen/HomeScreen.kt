@@ -17,35 +17,35 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.vadickkt.zooapp.navigation.Screen
 
 @Composable
 fun HomeScreen(
     navigationController: NavHostController
 ) {
+    val bottomNavController = rememberNavController()
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController = navigationController)
+            BottomNavigationBar(navController = bottomNavController)
         }
     ) { innerPadding ->
         NavHost(
-            navController = navigationController,
-            startDestination = Screen.Animals.route,
+            navController = bottomNavController,
+            startDestination = Screen.Animal.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Screen.Animals.route) {
+            composable(Screen.Animal.route) {
                 AnimalsScreen(
-                    animals = emptyList(),
-                    onAnimalClick = {
-
-                    },
-                    onAddAnimalClick = {
-                        navigationController.navigate(Screen.AddAnimal.route)
-                    }
+                    onAddNew = { navigationController.navigate(Screen.AddNewAnimal.route) },
+                    onDetails = {  }
                 )
             }
-            composable(Screen.Employees.route) {
-                EmployeesScreen()
+
+            composable(Screen.Employee.route) {
+                EmployeesScreen(
+                    onDetails = {  }
+                )
             }
         }
     }
@@ -54,8 +54,8 @@ fun HomeScreen(
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
-        Screen.Animals,
-        Screen.Employees,
+        Screen.Animal,
+        Screen.Employee,
     )
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -77,14 +77,14 @@ fun BottomNavigationBar(navController: NavHostController) {
                 icon = {
                     Icon(
                         imageVector = when (screen) {
-                            Screen.Animals -> Icons.Default.Done
-                            Screen.Employees -> Icons.Default.Favorite
+                            Screen.Animal -> Icons.Default.Done
+                            Screen.Employee -> Icons.Default.Favorite
                             else -> Icons.Default.Home
                         },
-                        contentDescription = screen.title
+                        contentDescription = screen.route
                     )
                 },
-                label = { Text(screen.title) }
+                label = { Text(screen.route) }
             )
         }
     }

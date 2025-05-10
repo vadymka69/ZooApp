@@ -3,6 +3,8 @@ package com.vadickkt.zooapp.ui.screen
 import androidx.compose.runtime.Composable
 
 @Composable
-fun EmployeesScreen() {
+fun EmployeesScreen(
+    onDetails: () -> Unit
+) {
 
 }

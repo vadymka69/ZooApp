@@ -1,8 +1,10 @@
 package com.vadickkt.zooapp.navigation
 
-sealed class Screen(val route: String, val title: String) {
-    data object Home : Screen("home", "Home")
-    data object Animals : Screen("animals", "Animals")
-    data object Employees : Screen("employees", "Employees")
-    data object AddAnimal : Screen("add_animal", "Add Animal")
+sealed class Screen(val route: String) {
+    object Home : Screen("home")
+    object Animal : Screen("animal")
+    object Employee : Screen("employee")
+    object AnimalDetails : Screen("animal_details")
+    object AddNewAnimal : Screen("add_animal")
+    object EmployeeDetails : Screen("employee_details")
 }

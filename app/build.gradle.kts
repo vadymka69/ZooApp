@@ -71,7 +71,8 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.9.0")
+    implementation("com.arkivanov.decompose:decompose:3.3.0")
+    implementation("com.arkivanov.decompose:extensions-compose:3.3.0")
 
     // Testing
     testImplementation(libs.junit)

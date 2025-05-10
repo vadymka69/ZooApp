@@ -11,11 +11,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Card
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,13 +31,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.vadickkt.zooapp.database.entities.Animal
+import com.vadickkt.zooapp.navigation.Screen
 
 @Composable
 fun AnimalsScreen(
-    animals: List<Animal>,
-    onAnimalClick: (Animal) -> Unit,
-    onAddAnimalClick: () -> Unit
+    animals: List<Animal> = emptyList(),
+    onAddNew: () -> Unit,
+    onDetails: () -> Unit,
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedType by remember { mutableStateOf("All") }
@@ -72,10 +80,10 @@ fun AnimalsScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = onAddAnimalClick) {
+            FloatingActionButton(onClick = onAddNew) {
                 Icon(Icons.Default.Add, contentDescription = "Додати тварину")
             }
-        }
+        },
     ) { paddingValues ->
         LazyColumn(contentPadding = paddingValues) {
             items(filteredAnimals.size) { index ->
@@ -85,7 +93,7 @@ fun AnimalsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
-                        .clickable { onAnimalClick(animal) }
+                        .clickable { onDetails.invoke() }
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(text = animal.name, style = MaterialTheme.typography.titleMedium)
