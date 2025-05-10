@@ -34,7 +34,15 @@ fun HomeScreen(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Animals.route) {
-                AnimalsScreen()
+                AnimalsScreen(
+                    animals = emptyList(),
+                    onAnimalClick = {
+
+                    },
+                    onAddAnimalClick = {
+                        navigationController.navigate(Screen.AddAnimal.route)
+                    }
+                )
             }
             composable(Screen.Employees.route) {
                 EmployeesScreen()
