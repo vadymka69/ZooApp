@@ -1,4 +1,4 @@
-package com.vadickkt.zooapp.theme
+package com.vadickkt.zooapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
