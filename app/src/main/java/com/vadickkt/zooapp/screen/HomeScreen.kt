@@ -37,13 +37,10 @@ fun HomeScreen(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Animals.route) {
-
+                AnimalsScreen()
             }
-            composable(Screen.Favorites.route) {
-
-            }
-            composable(Screen.Profile.route) {
-
+            composable(Screen.Employees.route) {
+                EmployeesScreen()
             }
         }
     }
@@ -53,8 +50,7 @@ fun HomeScreen(
 fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
         Screen.Animals,
-        Screen.Favorites,
-        Screen.Profile
+        Screen.Employees,
     )
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -77,8 +73,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                     Icon(
                         imageVector = when (screen) {
                             Screen.Animals -> Icons.Default.Done
-                            Screen.Favorites -> Icons.Default.Favorite
-                            Screen.Profile -> Icons.Default.Person
+                            Screen.Employees -> Icons.Default.Favorite
                             else -> Icons.Default.Home
                         },
                         contentDescription = screen.title
