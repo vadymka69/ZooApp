@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.vadickkt.zooapp.navigation.Screen
-import com.vadickkt.zooapp.viemodel.AnimalsViewModel
+import com.vadickkt.zooapp.viewmodel.AnimalsViewModel
 import kotlinx.serialization.Serializable
 
 @Composable

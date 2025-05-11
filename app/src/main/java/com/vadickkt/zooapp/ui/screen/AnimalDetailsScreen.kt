@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.vadickkt.zooapp.viemodel.AnimalDetailsViewModel
+import com.vadickkt.zooapp.viewmodel.AnimalDetailsViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

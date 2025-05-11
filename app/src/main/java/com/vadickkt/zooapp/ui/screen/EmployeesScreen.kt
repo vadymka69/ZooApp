@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.vadickkt.zooapp.database.entities.Employee
-import com.vadickkt.zooapp.viemodel.EmployeesViewModel
+import com.vadickkt.zooapp.viewmodel.EmployeesViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -38,6 +38,7 @@ fun EmployeesScreen(
     onDetails: (Employee) -> Unit,
     onAdd: () -> Unit
 ) {
+    employeesViewModel.loadEmployees()
     val employees = employeesViewModel.employees.value
 
     Scaffold(

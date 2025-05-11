@@ -17,5 +17,9 @@ data class Employee(
     @SerialName("date_of_birthday")
     val dateOfBirthday: Date,
     @SerialName("phone_number")
-    val phoneNumber: String
+    val phoneNumber: String,
+    @SerialName("job_type")
+    val jobType: JobType
 )
+
+enum class JobType { Vet, Caretaker }

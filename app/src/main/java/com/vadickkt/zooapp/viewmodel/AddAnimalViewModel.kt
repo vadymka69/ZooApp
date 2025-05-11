@@ -1,4 +1,4 @@
-package com.vadickkt.zooapp.viemodel
+package com.vadickkt.zooapp.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

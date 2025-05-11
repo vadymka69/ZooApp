@@ -1,4 +1,4 @@
-package com.vadickkt.zooapp.viemodel
+package com.vadickkt.zooapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
