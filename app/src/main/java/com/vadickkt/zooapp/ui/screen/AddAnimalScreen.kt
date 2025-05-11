@@ -41,8 +41,6 @@ fun AddAnimalScreen(
 ) {
     val context = LocalContext.current
     val dateFormat = remember { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()) }
-    val scope = rememberCoroutineScope()
-
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text("Створення тварини", style = MaterialTheme.typography.headlineSmall)

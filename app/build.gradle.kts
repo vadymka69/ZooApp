@@ -74,6 +74,8 @@ dependencies {
     implementation("com.arkivanov.decompose:decompose:3.3.0")
     implementation("com.arkivanov.decompose:extensions-compose:3.3.0")
 
+    implementation(libs.kotlinx.serialization.json)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

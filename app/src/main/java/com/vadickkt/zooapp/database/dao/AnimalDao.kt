@@ -16,4 +16,7 @@ interface AnimalDao {
 
     @Query("SELECT * FROM animals")
     fun getAllAnimals(): List<Animal>
+
+    @Query("SELECT * FROM animals WHERE animalId = :id LIMIT 1")
+    fun getAnimalById(id: Long): Animal?
 }

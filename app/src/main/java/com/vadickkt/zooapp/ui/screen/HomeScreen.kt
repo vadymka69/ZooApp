@@ -37,8 +37,8 @@ fun HomeScreen(
         ) {
             composable(Screen.Animal.route) {
                 AnimalsScreen(
-                    onAddNew = { navigationController.navigate(Screen.AddNewAnimal.route) },
-                    onDetails = {  }
+                    navController = navigationController,
+                    onAddNew = { navigationController.navigate(Screen.AddNewAnimal.route) }
                 )
             }
 

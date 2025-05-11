@@ -4,7 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.vadickkt.zooapp.ui.screen.AddAnimalScreen
+import com.vadickkt.zooapp.ui.screen.AnimalDetailsScreen
 import com.vadickkt.zooapp.ui.screen.HomeScreen
 
 @Composable
@@ -16,6 +18,16 @@ fun MainNavHost(navController: NavHostController) {
 
         composable(Screen.AddNewAnimal.route) {
             AddAnimalScreen()
+        }
+
+        composable(
+            route = Screen.AnimalDetails.route,
+            arguments = listOf(
+                navArgument("animalId") { type = androidx.navigation.NavType.LongType }
+            )
+        ) { backStackEntry ->
+            val animalId = backStackEntry.arguments?.getLong("animalId") ?: -1L
+            AnimalDetailsScreen(animalId = animalId)
         }
     }
 }

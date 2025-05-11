@@ -17,4 +17,7 @@ interface BirdDao {
 
     @Query("SELECT * FROM birds")
     fun getAllBirds(): List<Bird>
+
+    @Query("SELECT * FROM birds WHERE birdId = :id LIMIT 1")
+    fun getBirdById(id: Long): Bird?
 }

@@ -22,4 +22,7 @@ interface ReptileDao {
 
     @Query("SELECT * FROM marriages")
     fun getAllReptiles(): List<Marriage>
+
+    @Query("SELECT * FROM reptiles WHERE reptileId = :id LIMIT 1")
+    fun getReptileById(id: Long): Reptile?
 }
