@@ -3,40 +3,58 @@ package com.vadickkt.zooapp.ui.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.vadickkt.zooapp.database.entities.Diet
+import com.vadickkt.zooapp.navigation.Screen
 import com.vadickkt.zooapp.viewmodel.AnimalDetailsViewModel
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnimalDetailsScreen(
     viewModel: AnimalDetailsViewModel = hiltViewModel(),
-    animalId: Long
+    animalId: Long,
+    navController: NavController
 ) {
     val isLoading = viewModel.isLoading.collectAsState().value
     val animal = viewModel.animal.collectAsState().value
     val bird = viewModel.bird.collectAsState().value
     val reptile = viewModel.reptile.collectAsState().value
+    val currentDiet = viewModel.currentDiet.collectAsState().value
 
     LaunchedEffect(animalId) {
         viewModel.loadAnimalDetails(animalId)
+    }
+
+    // Слухаємо результат вибору раціону
+    LaunchedEffect(Unit) {
+        navController.currentBackStackEntry?.savedStateHandle?.get<Long>("selected_diet_id")?.let { dietId ->
+            viewModel.updateAnimalDiet(dietId)
+            navController.currentBackStackEntry?.savedStateHandle?.remove<Long>("selected_diet_id")
+        }
     }
 
     if (isLoading) {
@@ -87,7 +105,6 @@ fun AnimalDetailsScreen(
                 )
 
                 Text(text = "Дата народження: ${formatDate(animal.dateOfBirthday)}")
-
                 Text(text = "Стать: ${animal.gender}")
 
                 Text(
@@ -99,6 +116,21 @@ fun AnimalDetailsScreen(
                         }
                     }"
                 )
+
+                // Раціон
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Раціон: ${currentDiet?.name ?: "Не призначено"}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Button(onClick = { navController.navigate(Screen.Rations.route) }) {
+                        Text("Змінити раціон")
+                    }
+                }
 
                 if (animal.birdId != -1L && bird != null) {
                     Divider(modifier = Modifier.padding(vertical = 8.dp))
@@ -133,9 +165,7 @@ fun AnimalDetailsScreen(
     }
 }
 
-private fun formatDate(date: Date?): String {
-    return date?.let {
-        val formatter = SimpleDateFormat("dd MMMM yyyy", Locale("uk", "UA"))
-        formatter.format(it)
-    } ?: "Невідомо"
+private fun formatDate(date: java.util.Date): String {
+    val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    return formatter.format(date)
 }

@@ -9,6 +9,7 @@ import com.vadickkt.zooapp.ui.screen.AddAnimalScreen
 import com.vadickkt.zooapp.ui.screen.AddNewEmployeeScreen
 import com.vadickkt.zooapp.ui.screen.AnimalDetailsScreen
 import com.vadickkt.zooapp.ui.screen.HomeScreen
+import com.vadickkt.zooapp.ui.screen.RationsScreen
 
 @Composable
 fun MainNavHost(navController: NavHostController) {
@@ -28,11 +29,24 @@ fun MainNavHost(navController: NavHostController) {
             )
         ) { backStackEntry ->
             val animalId = backStackEntry.arguments?.getLong("animalId") ?: -1L
-            AnimalDetailsScreen(animalId = animalId)
+            AnimalDetailsScreen(
+                animalId = animalId,
+                navController = navController
+            )
         }
 
         composable(Screen.AddNewEmployee.route) {
             AddNewEmployeeScreen()
+        }
+
+        composable(Screen.Rations.route) {
+            RationsScreen(
+                onRationSelected = { diet ->
+                    // Передаємо тільки ID раціону
+                    navController.previousBackStackEntry?.savedStateHandle?.set("selected_diet_id", diet.dietId)
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

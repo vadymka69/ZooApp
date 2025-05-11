@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.vadickkt.zooapp.database.entities.Animal
 
 @Dao
@@ -13,6 +14,9 @@ interface AnimalDao {
 
     @Delete
     fun deleteAnimal(animal: Animal)
+
+    @Update
+    fun updateAnimal(animal: Animal)
 
     @Query("SELECT * FROM animals")
     fun getAllAnimals(): List<Animal>

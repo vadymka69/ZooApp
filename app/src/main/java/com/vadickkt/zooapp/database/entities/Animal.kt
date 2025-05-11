@@ -20,7 +20,9 @@ data class Animal(
     @SerialName("bird_id")
     val birdId: Long = -1,
     @SerialName("reptile_id")
-    val reptileId: Long = -1
+    val reptileId: Long = -1,
+    @SerialName("diet_id")
+    val dietId: Long = -1
 )
 
 enum class Gender { MALE, FEMALE, UNKNOWN }

@@ -18,4 +18,7 @@ interface DietDao {
 
     @Query("SELECT * FROM diets")
     fun getAllDiets(): List<Diet>
+
+    @Query("SELECT * FROM diets WHERE dietId = :id LIMIT 1")
+    fun getDietById(id: Long): Diet?
 }

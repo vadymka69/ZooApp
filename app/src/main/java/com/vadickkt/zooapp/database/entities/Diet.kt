@@ -1,5 +1,6 @@
 package com.vadickkt.zooapp.database.entities
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
@@ -11,10 +12,15 @@ import kotlinx.serialization.SerialName
 data class Diet(
     @PrimaryKey(autoGenerate = true)
     @SerialName("diet_id")
-    val dietId: Long,
+    val dietId: Long = 0,
     val name: String,
-    @SerialName("diet_type")
-    val dietType: DietType
+    val type: DietType,
+    val description: String = ""
 )
 
-enum class DietType { CHILD, DIETARY, ENHANCED }
+enum class DietType {
+    CHILD,      // Дитячий
+    DIET,       // Дієтичний
+    ENHANCED,   // Посилений
+    STANDARD    // Стандартний
+}
