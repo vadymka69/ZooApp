@@ -39,7 +39,7 @@ fun EmployeesScreen(
     onAdd: () -> Unit
 ) {
     employeesViewModel.loadEmployees()
-    val employees = employeesViewModel.employees.value
+    val employees = employeesViewModel.employees.value.reversed()
 
     Scaffold(
         topBar = {

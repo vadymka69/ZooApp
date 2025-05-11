@@ -49,7 +49,7 @@ fun RationsScreen(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(rations) { ration ->
+            items(rations.reversed()) { ration ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -126,7 +126,10 @@ private fun AddRationDialog(
                         onValueChange = { },
                         readOnly = true,
                         label = { Text("Тип раціону") },
-                        modifier = Modifier.fillMaxWidth()
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .menuAnchor()
                     )
                     
                     ExposedDropdownMenu(
