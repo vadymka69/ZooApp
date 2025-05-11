@@ -86,9 +86,7 @@ fun AnimalDetailsScreen(
                     color = MaterialTheme.colorScheme.primary
                 )
 
-                animal.dateOfBirthday?.let { date ->
-                    Text(text = "Дата народження: ${formatDate(date)}")
-                }
+                Text(text = "Дата народження: ${formatDate(animal.dateOfBirthday)}")
 
                 Text(text = "Стать: ${animal.gender}")
 
@@ -97,7 +95,7 @@ fun AnimalDetailsScreen(
                         when {
                             animal.birdId != -1L -> "Птах"
                             animal.reptileId != -1L -> "Рептилія"
-                            else -> "Невідомий"
+                            else -> "Тварина"
                         }
                     }"
                 )
