@@ -44,7 +44,8 @@ fun HomeScreen(
 
             composable(Screen.Employee.route) {
                 EmployeesScreen(
-                    onDetails = {  }
+                    onDetails = {  },
+                    onAdd = { }
                 )
             }
         }
