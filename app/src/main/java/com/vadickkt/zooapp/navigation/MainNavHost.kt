@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.vadickkt.zooapp.ui.screen.AddAnimalScreen
 import com.vadickkt.zooapp.ui.screen.HomeScreen
 
 @Composable
@@ -13,16 +14,8 @@ fun MainNavHost(navController: NavHostController) {
             HomeScreen(navController)
         }
 
-        composable(Screen.AnimalDetails.route) {
-            // AnimalDetailsScreen()
-        }
-
         composable(Screen.AddNewAnimal.route) {
-           //  AddNewAnimalScreen()
-        }
-
-        composable(Screen.EmployeeDetails.route) {
-           // EmployeeDetailsScreen()
+            AddAnimalScreen()
         }
     }
 }

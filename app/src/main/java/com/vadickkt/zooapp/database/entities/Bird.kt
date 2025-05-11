@@ -12,7 +12,7 @@ import java.util.Date
 data class Bird(
     @PrimaryKey(autoGenerate = true)
     @SerialName("bird_id")
-    val birdId: Long,
+    val birdId: Long = 0,
     @SerialName("country_name")
     val countryName: String,
     @SerialName("country_code")

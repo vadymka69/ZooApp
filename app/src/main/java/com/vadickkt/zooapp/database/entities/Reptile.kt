@@ -12,7 +12,7 @@ import java.util.Date
 data class Reptile(
     @PrimaryKey(autoGenerate = true)
     @SerialName("reptile_id")
-    val reptileId: Long,
+    val reptileId: Long = 0,
     val temperature: Float,
     @SerialName("onset_of_hibernation")
     val onsetOfHibernation: Date,
