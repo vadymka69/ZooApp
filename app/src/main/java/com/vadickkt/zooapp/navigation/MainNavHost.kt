@@ -10,6 +10,8 @@ import com.vadickkt.zooapp.ui.screen.AddNewEmployeeScreen
 import com.vadickkt.zooapp.ui.screen.AnimalDetailsScreen
 import com.vadickkt.zooapp.ui.screen.HomeScreen
 import com.vadickkt.zooapp.ui.screen.RationsScreen
+import com.vadickkt.zooapp.ui.screen.EmployeesScreen
+import com.vadickkt.zooapp.ui.screen.SelectEmployeeScreen
 
 @Composable
 fun MainNavHost(navController: NavHostController) {
@@ -37,6 +39,27 @@ fun MainNavHost(navController: NavHostController) {
 
         composable(Screen.AddNewEmployee.route) {
             AddNewEmployeeScreen()
+        }
+
+        composable(Screen.Employee.route) {
+            EmployeesScreen(
+                onDetails = { },
+                onAdd = { navController.navigate(Screen.AddNewEmployee.route) },
+                navController = navController
+            )
+        }
+
+        composable(
+            route = Screen.SelectEmployee.route,
+            arguments = listOf(
+                navArgument("type") { type = androidx.navigation.NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val type = backStackEntry.arguments?.getString("type") ?: ""
+            SelectEmployeeScreen(
+                navController = navController,
+                type = type
+            )
         }
 
         composable(Screen.Rations.route) {

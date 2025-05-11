@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.vadickkt.zooapp.database.dao.AnimalDao
 import com.vadickkt.zooapp.database.dao.BirdDao
 import com.vadickkt.zooapp.database.dao.DietDao
+import com.vadickkt.zooapp.database.dao.EmployeeDao
 import com.vadickkt.zooapp.database.dao.ReptileDao
 import com.vadickkt.zooapp.database.entities.Animal
 import com.vadickkt.zooapp.database.entities.Bird
 import com.vadickkt.zooapp.database.entities.Diet
+import com.vadickkt.zooapp.database.entities.Employee
 import com.vadickkt.zooapp.database.entities.Reptile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +24,8 @@ class AnimalDetailsViewModel @Inject constructor(
     private val animalDao: AnimalDao,
     private val birdDao: BirdDao,
     private val reptileDao: ReptileDao,
-    private val dietDao: DietDao
+    private val dietDao: DietDao,
+    private val employeeDao: EmployeeDao
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -39,6 +42,12 @@ class AnimalDetailsViewModel @Inject constructor(
 
     private val _currentDiet = MutableStateFlow<Diet?>(null)
     val currentDiet: StateFlow<Diet?> = _currentDiet
+
+    private val _vet = MutableStateFlow<Employee?>(null)
+    val vet: StateFlow<Employee?> = _vet
+
+    private val _caretaker = MutableStateFlow<Employee?>(null)
+    val caretaker: StateFlow<Employee?> = _caretaker
 
     fun loadAnimalDetails(animalId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -57,6 +66,12 @@ class AnimalDetailsViewModel @Inject constructor(
                     if (animal.dietId != -1L) {
                         _currentDiet.value = dietDao.getDietById(animal.dietId)
                     }
+                    if (animal.vetId != -1L) {
+                        _vet.value = employeeDao.getEmployeeById(animal.vetId)
+                    }
+                    if (animal.caretakerId != -1L) {
+                        _caretaker.value = employeeDao.getEmployeeById(animal.caretakerId)
+                    }
                 }
             } finally {
                 _isLoading.value = false
@@ -71,6 +86,28 @@ class AnimalDetailsViewModel @Inject constructor(
                 animalDao.updateAnimal(updatedAnimal)
                 _animal.value = updatedAnimal
                 _currentDiet.value = dietDao.getDietById(dietId)
+            }
+        }
+    }
+
+    fun updateAnimalVet(employeeId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _animal.value?.let { animal ->
+                val updatedAnimal = animal.copy(vetId = employeeId)
+                animalDao.updateAnimal(updatedAnimal)
+                _animal.value = updatedAnimal
+                _vet.value = employeeDao.getEmployeeById(employeeId)
+            }
+        }
+    }
+
+    fun updateAnimalCaretaker(employeeId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _animal.value?.let { animal ->
+                val updatedAnimal = animal.copy(caretakerId = employeeId)
+                animalDao.updateAnimal(updatedAnimal)
+                _animal.value = updatedAnimal
+                _caretaker.value = employeeDao.getEmployeeById(employeeId)
             }
         }
     }

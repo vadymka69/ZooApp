@@ -45,7 +45,8 @@ fun HomeScreen(
             composable(Screen.Employee.route) {
                 EmployeesScreen(
                     onDetails = {  },
-                    onAdd = { navigationController.navigate(Screen.AddNewEmployee.route) }
+                    onAdd = { navigationController.navigate(Screen.AddNewEmployee.route) },
+                    navController = navigationController
                 )
             }
         }

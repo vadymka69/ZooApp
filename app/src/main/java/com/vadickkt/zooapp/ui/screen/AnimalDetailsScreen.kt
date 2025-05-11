@@ -57,6 +57,18 @@ fun AnimalDetailsScreen(
         }
     }
 
+    // Слухаємо результат вибору працівника
+    LaunchedEffect(Unit) {
+        navController.currentBackStackEntry?.savedStateHandle?.get<Long>("selected_employee_id")?.let { employeeId ->
+            val employeeType = navController.currentBackStackEntry?.savedStateHandle?.get<String>("employee_type")
+            when (employeeType) {
+                "VET" -> viewModel.updateAnimalVet(employeeId)
+                "CARETAKER" -> viewModel.updateAnimalCaretaker(employeeId)
+            }
+            navController.currentBackStackEntry?.savedStateHandle?.remove<Long>("selected_employee_id")
+        }
+    }
+
     if (isLoading) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -129,6 +141,42 @@ fun AnimalDetailsScreen(
                     )
                     Button(onClick = { navController.navigate(Screen.Rations.route) }) {
                         Text("Змінити раціон")
+                    }
+                }
+
+                // Ветеринар
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Ветеринар: ${viewModel.vet.value?.name ?: "Не призначено"}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Button(onClick = { 
+                        navController.currentBackStackEntry?.savedStateHandle?.set("employee_type", "VET")
+                        navController.navigate(Screen.SelectEmployee.createRoute("VET"))
+                    }) {
+                        Text("Призначити")
+                    }
+                }
+
+                // Доглядач
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Доглядач: ${viewModel.caretaker.value?.name ?: "Не призначено"}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Button(onClick = { 
+                        navController.currentBackStackEntry?.savedStateHandle?.set("employee_type", "CARETAKER")
+                        navController.navigate(Screen.SelectEmployee.createRoute("CARETAKER"))
+                    }) {
+                        Text("Призначити")
                     }
                 }
 

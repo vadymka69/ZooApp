@@ -19,4 +19,7 @@ interface EmployeeDao {
 
     @Query("SELECT * FROM employees")
     fun getAllEmployees(): List<Employee>
+
+    @Query("SELECT * FROM employees WHERE employeeId = :id LIMIT 1")
+    fun getEmployeeById(id: Long): Employee?
 }
