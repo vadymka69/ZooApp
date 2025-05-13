@@ -5,6 +5,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -49,6 +51,10 @@ fun HomeScreen(
                     navController = navigationController
                 )
             }
+
+            composable(Screen.Marriage.route) {
+                MarriageScreen()
+            }
         }
     }
 }
@@ -58,6 +64,7 @@ fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
         Screen.Animal,
         Screen.Employee,
+        Screen.Marriage,
     )
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -81,6 +88,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                         imageVector = when (screen) {
                             Screen.Animal -> Icons.Default.Done
                             Screen.Employee -> Icons.Default.Favorite
+                            Screen.Marriage -> Icons.Default.ThumbUp
                             else -> Icons.Default.Home
                         },
                         contentDescription = screen.route

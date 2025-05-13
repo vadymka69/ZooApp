@@ -24,7 +24,6 @@ fun SelectEmployeeScreen(
     val employees = employeesViewModel.employees.value.reversed()
     var searchQuery by remember { mutableStateOf("") }
 
-    // Фільтруємо співробітників за типом
     val filteredEmployees = employees.filter { employee ->
         employee.name.contains(searchQuery, ignoreCase = true) &&
         when (type) {
