@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.vadickkt.zooapp.database.entities.Gender
 import com.vadickkt.zooapp.navigation.Screen
 import com.vadickkt.zooapp.viewmodel.AnimalsViewModel
 import kotlinx.serialization.Serializable
@@ -41,13 +42,13 @@ fun AnimalsScreen(
     viewModel.loadAnimals()
     val animals = viewModel.animals.value.reversed()
     var searchQuery by remember { mutableStateOf("") }
-    var selectedType by remember { mutableStateOf("All") }
+    var selectedType by remember { mutableStateOf("Всі") }
 
     val filteredAnimals = animals.filter {
         it.name.contains(searchQuery, ignoreCase = true) &&
-                (selectedType == "All" ||
-                        (selectedType == "Bird" && it.birdId != -1L) ||
-                        (selectedType == "Reptile" && it.reptileId != -1L))
+                (selectedType == "Всі" ||
+                        (selectedType == "Пташка" && it.birdId != -1L) ||
+                        (selectedType == "Рептилія" && it.reptileId != -1L))
     }
 
     Scaffold(
@@ -66,7 +67,7 @@ fun AnimalsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    val types = listOf("All", "Bird", "Reptile")
+                    val types = listOf("Всі", "Пташка", "Рептилія")
                     types.forEach { type ->
                         FilterChip(
                             selected = selectedType == type,
@@ -97,8 +98,15 @@ fun AnimalsScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(text = animal.name, style = MaterialTheme.typography.titleMedium)
+                        val state = if (animal.gender == Gender.MALE) {
+                            "Чоловіча"
+                        } else if (animal.gender == Gender.FEMALE) {
+                            "Жіноча"
+                        } else {
+                            "Невідомо"
+                        }
                         Text(
-                            text = "Стать: ${animal.gender}, Тип: ${
+                            text = "Стать: $state, Тип: ${
                                 when {
                                     animal.birdId != -1L -> "Пташка"
                                     animal.reptileId != -1L -> "Рептилія"
@@ -112,10 +120,3 @@ fun AnimalsScreen(
         }
     }
 }
-
-@Serializable
-data class AnimalDetails(
-    val animalId: Long,
-    val birdId: Long?,
-    val reptileId: Long?
-)

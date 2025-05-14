@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.vadickkt.zooapp.database.entities.Employee
+import com.vadickkt.zooapp.database.entities.JobType
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -29,8 +30,19 @@ fun EmployeeItem(employee: Employee, onClick: () -> Unit) {
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(4.dp))
+
+            val job = if (employee.jobType == JobType.Vet) {
+                "Ветеринар"
+            } else {
+                "Доглядач"
+            }
+
             Text(
-                text = "Посада: ${employee.jobType.name}",
+                text = "id: ${employee.employeeId}",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = "Посада: $job",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(

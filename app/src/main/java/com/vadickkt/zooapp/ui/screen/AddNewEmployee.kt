@@ -77,7 +77,13 @@ fun AddNewEmployeeScreen(
                     selected = viewModel.jobType == job,
                     onClick = { viewModel.jobType = job }
                 )
-                Text(job.name)
+                val jobName = if (job == JobType.Vet) {
+                    "Ветеринар"
+                } else {
+                    "Доглядач"
+                }
+
+                Text(jobName)
             }
         }
 
